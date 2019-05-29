@@ -16,17 +16,22 @@ public class Main
 
         for (String s : words)
         {
-            Integer f = wordHashMap.get(s);
+            Integer f = wordHashMap.get(s.toLowerCase());
+
             if (f == null)
             {
                 wordHashMap.put(s.toLowerCase(), 1);
             }
             else 
             {
-                wordHashMap.put(s, f+1);
+                
+                wordHashMap.put(s.toLowerCase(), f += 1);
             }
+
         }
 
+        System.out.println(" *** Top 50 Sorted by quantity ***");
+        
         ArrayList<HashMap.Entry<String, Integer>> sortedList = new ArrayList<HashMap.Entry<String, Integer>>();
         sortedList.addAll(wordHashMap.entrySet());
 
@@ -38,9 +43,29 @@ public class Main
             }
         });
 
-        for(int i = 0; i <= 49; i++)
+        ArrayList<HashMap.Entry<String, Integer>> topList = new ArrayList<HashMap.Entry<String, Integer>>();
+
+        for(int i = 0; i <= 50; i++)
         {
+            topList.add(sortedList.get(i));
             System.out.println(sortedList.get(i));
+        }
+        
+
+        
+        System.out.println(" *** Top 50 Sorted by Alphabetically ***");
+        
+        Collections.sort(topList, new Comparator<Map.Entry<String, Integer> >()
+        {
+            public int compare (HashMap.Entry<String, Integer> o1, HashMap.Entry<String, Integer> o2)
+            {
+                return o1.getKey().compareToIgnoreCase(o2.getKey());
+            }
+        });
+        
+        for(int i = 0; i <= 50; i++)
+        {
+            System.out.println(topList.get(i));
         }
         // sortedList.forEach(s -> System.out.println(s));
         // for (String s : wordHashMap.keySet())
